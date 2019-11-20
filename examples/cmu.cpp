@@ -1,5 +1,5 @@
 /**
- * \file test/localFeatures/main.cpp
+ * \file examples/cmu.cpp
  * \brief Extracts local features from the database images to file.
  */
 
@@ -20,9 +20,15 @@
 #include "util/types.h"
 #include "util/cst.h"
 
+#define DATA_DIR "meta/cmu/bgr/"
+#define SEG_DIR "meta/cmu/seg/"
+
+#define MIN_CONTOUR_SIZE 500
+#define MIN_EDGE_SIZE 400
+
 typedef std::map<int, std::vector<Edge> > Label2edges;
     
-static const unsigned int num_threads = 16;
+static const unsigned int num_threads = 8;
 
 struct LocalFeatures{
   pthread_mutex_t mutex;
@@ -107,33 +113,30 @@ void* feature_thread(void* arg){
 int main(int argc, char* argv[]){
   if (argc == 1){
     printf("Arguments:\n");
-    printf("1. trial\n");
-    printf("2. sliceId\n");
-    printf("3. camId\n");
-    printf("4. surveyId\n");
+    printf("1. sliceId\n");
+    printf("2. camId\n");
+    printf("3. surveyId\n");
     exit(0);
   }
 
-  if (argc != 5){
+  if (argc != 4){
     printf("Error: wrong number of argument\n");
-    printf("1. trial\n");
-    printf("2. sliceId\n");
-    printf("3. camId\n");
-    printf("4. surveyId\n");
+    printf("1. sliceId\n");
+    printf("2. camId\n");
+    printf("3. surveyId\n");
     exit(1);
   }
 
-  int trial = atoi(argv[1]);
-  int sliceId = atoi(argv[2]);
-  int camId = atoi(argv[3]);
-  int surveyId = atoi(argv[4]);
+  int sliceId = atoi(argv[1]);
+  int camId = atoi(argv[2]);
+  int surveyId = atoi(argv[3]);
 
   char metaFn[256];
   if (surveyId == -1){
-    sprintf(metaFn, "%s/%d/%d_c%d_db/pose.txt", META_DIR, sliceId, sliceId, camId);
+    sprintf(metaFn, "meta/cmu/surveys/%d/%d_c%d_db/pose.txt", sliceId, sliceId, camId);
   }
   else{
-    sprintf(metaFn, "%s/%d/%d_c%d_%d/pose.txt", META_DIR, sliceId, sliceId, camId, surveyId);
+    sprintf(metaFn, "meta/cmu/surveys/%d/%d_c%d_%d/pose.txt", sliceId, sliceId, camId, surveyId);
   }
   printf("metaFn: %s\n", metaFn);
 
@@ -161,7 +164,7 @@ int main(int argc, char* argv[]){
     cv::Mat_<cv::Vec3b> semImg;
     survey.getSemanticImg(i, semImg);
 
-    EdgeParams params;
+    EdgeParams params(MIN_CONTOUR_SIZE, MIN_EDGE_SIZE);
     Label2edges semanticEdges;
     extractSemanticEdge(params, semImg, colors, semanticEdges);
 
@@ -201,30 +204,22 @@ int main(int argc, char* argv[]){
       else{
         sprintf(file_mode, "a");
       }
-      // write kp and des to file
+      // write  des to file
       char outFn[512];
-      sprintf(outFn, "res/%d/des/%d/%s.txt",trial, label, fn.c_str());
+      if (sliceId < 10){ // not the prettiest way to do this
+        sprintf(outFn, "res/cmu_urban/features/des/%d/%s.txt", label, fn.c_str());
+      }
+      else{
+        sprintf(outFn, "res/cmu_park/features/des/%d/%s.txt", label, fn.c_str());
+      }
       faiss_des2file(outFn, file_mode, LF.des[j]);
 
-      // write kp and des to file
-      sprintf(outFn, "res/%d/kp/%d/%s.txt",trial, label, fn.c_str());
-      faiss_kp2file(outFn, file_mode, LF.kps[j]);
+      //// write kp to file
+      //sprintf(outFn, "res/cmu/features/kp/%d/%s.txt", label, fn.c_str());
+      //faiss_kp2file(outFn, file_mode, LF.kps[j]);
     }
   }
 
-  //// draw detected kp
-  //cv::Mat_<cv::Vec3b> edgeImgC;
-  //cv::cvtColor(edgeImg, edgeImgC, cv::COLOR_GRAY2BGR);
-  //for (int label=0; label<LABEL_NUM; label++){
-  //  if (labels[label]==0){
-  //    continue; // there is no such label here
-  //  }
-  //  for (size_t i=0; i<label2kp[label].size(); i++){
-  //    cv::circle(edgeImgC, label2kp[label][i].pt, 3, cv::Vec3b(0,255,0), 1, 8);
-  //  }
-  //}
-  //cv::imshow("edgeImgC", edgeImgC);
-  //cv::waitKey(0);
   time(&end_time);
   double duration = end_time - start_time;
   printf("Total time: %02d:%02d(s)\n", (int) (round(duration)/60), ((int) round(duration))%60);

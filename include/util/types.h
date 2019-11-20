@@ -40,6 +40,12 @@ struct EdgeParams{
     minContourSize = 50;
     minEdgeSize = 40;
   }
+
+  EdgeParams(int minContourSize, int minEdgeSize): 
+    minContourSize(minContourSize), 
+    minEdgeSize(minEdgeSize){
+  
+    }
 };
 
 

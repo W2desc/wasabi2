@@ -105,7 +105,7 @@ class SymphonySurvey: public Survey{
 };
 
 
-void loadSurvey(int sliceId, int camId, int surveyId, Survey& survey);
+//void loadSurvey(int sliceId, int camId, int surveyId, Survey& survey);
 
 //class Survey{
 //  public:

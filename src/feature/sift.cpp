@@ -700,7 +700,7 @@ void SIFT::findScaleSpaceExtrema(
     const std::vector<cv::Mat>& dog_pyr,
     std::vector<cv::KeyPoint>& keypoints){
 
-  // TODO: adjust this motherfucker
+  // TODO: adjust this value if needed
   const int threshold = cvFloor(0.5 * contrastThreshold / nOctaveLayers * 255 * SIFT_FIXPT_SCALE);
   //printf("findScaleSpaceExtrema::threshold: %d\n", threshold);
 

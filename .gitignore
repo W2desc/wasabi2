@@ -4,3 +4,16 @@ build/
 *.so
 *~
 *.swp
+
+*pyc
+__pycache__
+
+meta/cmu/seg/slice*
+meta/cmu/seg/tmp/
+meta/cmu/draft/
+meta/cmu/surveys/
+meta/codebooks/*txt
+
+meta/symphony/
+
+res/

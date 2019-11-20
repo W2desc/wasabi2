@@ -294,7 +294,7 @@ void SCD::describe(cv::Mat_<float>& edgeIn, std::vector<cv::KeyPoint>& kpsIdx, c
     setOuterRadius(kpsIdx[i].size); // update histogram scale
     logarithmicSpaces(logspaces);
 
-    // gen this motherfucking histogram
+    // gen this histogram
     cv::Mat_<float> desRef = des.row(i);
     genHistogram(disMatrix, angleMatrix, idx, logspaces, angspaces, desRef);
     //std::cout << desRef << std::endl;

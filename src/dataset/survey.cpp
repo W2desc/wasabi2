@@ -240,14 +240,14 @@ void SymphonySurvey::getSemanticImg(std::string fn, cv::Mat_<cv::Vec3b>& img){
 
 
 //////////////////////////
-void loadSurvey(int sliceId, int camId, int surveyId, Survey& survey){
-  char metaFn[256];
-  if (surveyId == -1){
-    sprintf(metaFn, "%s/%d/%d_c%d_db/pose.txt", META_DIR, sliceId, sliceId, camId);
-  }
-  else{
-    sprintf(metaFn, "%s/%d/%d_c%d_%d/pose.txt", META_DIR, sliceId, sliceId, camId, surveyId);
-  }
-  //printf("metaFn: %s\n", metaFn);
-  survey = CMUSurvey(metaFn, std::string(DATA_DIR), std::string(SEG_DIR));
-}
+//void loadSurvey(int sliceId, int camId, int surveyId, Survey& survey){
+//  char metaFn[256];
+//  if (surveyId == -1){
+//    sprintf(metaFn, "%s/%d/%d_c%d_db/pose.txt", META_DIR, sliceId, sliceId, camId);
+//  }
+//  else{
+//    sprintf(metaFn, "%s/%d/%d_c%d_%d/pose.txt", META_DIR, sliceId, sliceId, camId, surveyId);
+//  }
+//  //printf("metaFn: %s\n", metaFn);
+//  survey = CMUSurvey(metaFn, std::string(DATA_DIR), std::string(SEG_DIR));
+//}

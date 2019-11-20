@@ -8,7 +8,6 @@
 #include <opencv2/core.hpp>
 
 #include "util/semantic.h"
-#include "util/cst.h"
 
 void col2lab(cv::Mat_<cv::Vec3b>& colMap, cv::Mat_<cv::Vec3b>& colors, cv::Mat_<uint8_t>& labMap){
   for (int c=0; c<colors.rows; c++){
@@ -43,7 +42,7 @@ void loadColors(cv::Mat_<cv::Vec3b>& colors){
   colors = cv::Mat_<cv::Vec3b>(labelNum, 1, cv::Vec3b(0,0,0));
 
   char fn[256];
-  sprintf(fn, "%s/meta/palette_cityscapes.txt", PROJECT_DIR);
+  sprintf(fn, "meta/palette_cityscapes.txt"); // yes, I know, it is a bad hardcoding, sorry
   FILE* fp = fopen(fn, "r");
   if (fp==NULL){
     printf("Error: failed to open file %s\n", fn);

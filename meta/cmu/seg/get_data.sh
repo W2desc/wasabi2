@@ -22,20 +22,17 @@ gdrive_download () {
   rm -rf /tmp/cookies.txt
 }
 
-if [ "$slice_id" -eq -1 ]; then # dowload all data
-  # be nice and warn the use it is in for a hell of a download
-  while true; do
-    read -p "WARNING: you are about to download 129.3G of data. Do you want to pursue ?"
-    case $yn in
-      [Yy]* ) break;;
-      [Nn]* ) exit;;
-      * ) * echo "Please answer yes (y) or no (n).";;
-    esac
-  done
+if [ "$slice_id" -eq -1 ]; then # dowload all segmentation data (<1G)
 
   while read -r line
   do
-    wget "$line"
+    filename=$(echo "$line" | cut -d' ' -f1)
+    fileid=$(echo "$line" | cut -d' ' -f2)
+    echo "filename: "$filename""
+    echo "fileid: "$fileid""
+    #gdrive_download "$fileid" "$filename"
+    #tar -xvzf "$filename"
+    #rm -f "$filename"
   done < data_links.txt
 
 else # download only slice
@@ -48,7 +45,7 @@ else # download only slice
   fileid=$(grep "$filename" ./data_links.txt | cut -d' ' -f2)
   echo "fileid: "$fileid""
 
-  gdrive_download "$fileid" "$filename"
-  tar -xvzf "$filename"
-  rm -f "$filename"
+  #gdrive_download "$fileid" "$filename"
+  #tar -xvzf "$filename"
+  #rm -f "$filename"
 fi
