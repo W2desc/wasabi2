@@ -1,5 +1,9 @@
 Code to reproduce the results of the paper at the time of the submission.
 
+[Summary of the paper in video](https://www.youtube.com/watch?v=JeYpcRPqDUM&feature=youtu.be)
+[![Alt text](mq1.jpg)](https://www.youtube.com/watch?v=JeYpcRPqDUM&feature=youtu.be)
+
+
 # Usage
 - Download the image segmentations, the codebook and the survey definitions (i.e. the files that specify the traversals).
 - Extract local features to disk.
