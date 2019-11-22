@@ -243,7 +243,6 @@ void kpIdx2kp(cv::Mat_<float>& edge, std::vector<cv::KeyPoint>& kpsIdx, std::vec
     float idx_next = ceil(idx);
     //printf("idx: %f\tidx_prev: %f\tidx_next: %f\n", idx, idx_prev, idx_next);
 
-    //// TODO: ask Cedric wtf is going on with this line
     //float w_prev = 1. - idx - idx_prev;
     //float w_next = 1. - idx_next - idx;
 

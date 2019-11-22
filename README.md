@@ -1,4 +1,4 @@
-Code to reproduce the results of the paper.
+Code to reproduce the results of the paper at the time of the submission.
 
 # Usage
 - Download the image segmentations, the codebook and the survey definitions (i.e. the files that specify the traversals).
@@ -36,10 +36,11 @@ make
 ```
 
 
-## Docker 
+## Docker (incomplete)
+The docker image is not complete yet, sorry.
+
 Follow these instructions to run the experiments inside a docker image. 
 This assumes you already have docker installed [nvidia-docker](https://github.com/NVIDIA/nvidia-docker). 
-
 
 Build and run the docker image:
 ```bash
@@ -72,8 +73,8 @@ cd meta/cmu/symphony/
 
 ### Codebooks
 ```bash
-TODO
-
+cd meta/cmu/codebooks/
+./get_data.sh
 ```
 
 
@@ -124,6 +125,8 @@ evince cmu_park.pdf # replace cmu_park.pdf with cmu_urban.pdf and symphony.pdf f
 
 Display the plots of the generated results with 
 ```bash
-
+evince fig5_cmu_park.png
+evince fig6_cmu_park.png
 ```
+
 Remark: This README does not desrcibe how to generate the results with compared methods (BOW, VLAD, NetVLAD, DELF, WASABI). These instructions are already available in the WASABI repo that we do not include here for it is not anonymous. The WASABI repo will be linked to this one once the review period is over.

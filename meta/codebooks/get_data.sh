@@ -9,10 +9,12 @@ gdrive_download () {
   rm -rf /tmp/cookies.txt
 }
 
-fileid=16rpReMuVDRmYRof7u28isC8k7iH22mJq
-filename=surveys.tar.gz
+fileid=1L6kK80xxxPuxJybh_Ea8SPvFvKbpVCkY
+filename=codebooks.tar.gz
 gdrive_download "$fileid" "$filename"
 
 tar -xvzf "$filename"
+mv codebooks/* .
 rm -f "$filename"
+rm -rf codebooks
 
