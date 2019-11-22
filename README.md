@@ -1,10 +1,7 @@
 Code to reproduce the results of the paper.
 
 # Usage
-- Download:
-  - The images segmentation.
-  - The codebook.
-  - The survey definitions (i.e. the files that specify the traversals).
+- Download the image segmentations, the codebook and the survey definitions (i.e. the files that specify the traversals).
 - Extract local features to disk.
 - Retrieve query images.
 
@@ -14,7 +11,8 @@ The python packages needed are specified in `requirements.txt`.
 
 We also provide a Dockerfile although it may not be necessary.
 
-## Manual
+## Manual setup
+Follow these instructions to prepare your machine to run the experiments.
 #### cpp dependencies
 - *OpenCV 3.2.0*
   - Archive download link: [link](https://github.com/opencv/opencv/archive/3.2.0.zip)
@@ -39,6 +37,10 @@ make
 
 
 ## Docker 
+Follow these instructions to run the experiments inside a docker image. 
+This assumes you already have docker installed [nvidia-docker](https://github.com/NVIDIA/nvidia-docker). 
+
+
 Build and run the docker image:
 ```bash
 cd docker
@@ -70,6 +72,7 @@ cd meta/cmu/symphony/
 
 ### Codebooks
 ```bash
+TODO
 
 ```
 
@@ -83,39 +86,44 @@ Extract the local feature to disk
 
 Run the retrieval:
 ```bash
-
+./scripts/wasabi2.sh symphony -1
 ```
 
-Plot the retrieval scores:
+Display the retrieval scores:
 ```bash
-
+evince symphony.pdf
+eog fig7_symphony.png
 ```
 
 
 ## Extended-CMU-Seasons
 For clarity, this section explains how to run the experiments for the park slice 22. 
-For the rest of the park slices, just replace 22 with {23,24,25}.
+For the rest of the park and urban slices, see alternative commands appended with comments.
 
-For the urban slices, replaces the park training slices {18,19,20,21} with the urban ones {2,3,4,5}. 
-And the park evaluation slices {22,23,24,25} with the urban ones {6,7,8}.
 
-Extract the local feature to disk
+Extract the local feature to disk.
 ```bash
 ./scripts/extract_features.sh cmu_park 22 # for park slice22
 
 ./scripts/extract_features.sh cmu_park -1 # for all park retrievals
-./scripts/extract_features.sh cmu_urban -1 # for all park retrievals
+./scripts/extract_features.sh cmu_urban -1 # for all urban retrievals
 ```
 
-Run the retrieval:
+Run the retrieval.
 ```bash
-./scripts/wasabi2.sh cmu park_22 # for park slice22
+./scripts/wasabi2.sh cmu_park 22 # for park slice22
 
-./scripts/wasabi2.sh cmu park # for all park retrievals
-./scripts/wasabi2.sh cmu urban # for all city retrievals
+./scripts/wasabi2.sh cmu_park -1 # for all park retrievals
+./scripts/wasabi2.sh cmu_urban -1 # for all city retrievals
 ```
 
-Generate the plots
+Display the generated results in tabular form with 
+```bash
+evince cmu_park.pdf # replace cmu_park.pdf with cmu_urban.pdf and symphony.pdf for the other results
+``
+
+Display the plots of the generated results with 
 ```bash
 
 ```
+Remark: This README does not desrcibe how to generate the results with compared methods (BOW, VLAD, NetVLAD, DELF, WASABI). These instructions are already available in the WASABI repo that we do not include here for it is not anonymous. The WASABI repo will be linked to this one once the review period is over.

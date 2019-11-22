@@ -104,46 +104,7 @@ do
       fi
     done
 done < "$loop_file"
-
-
-
-## LAKE
-#img_dir="$WS_DIR"datasets/Extended-CMU-Seasons/
-#meta_dir=meta/symphony/surveys/
-#
-#while read -r line
-#do
-#  slice_id=$(echo "$line" | cut -d' ' -f1)
-#  cam_id=$(echo "$line" | cut -d' ' -f2)
-#  for survey_id in $(echo "$line" | cut -d' ' -f 3-)
-#  do
-#      echo "\n\n** Slice "$slice_id" Cam "$cam_id" Survey "$survey_id" **"
-#      #python3 -m methods.vlad_bow.retrieve \
-#      python3 -m methods.vlad_bow_acc.retrieve \
-#        --trial "$trial" \
-#        --dist_pos 5 \
-#        --top_k "$top_k" \
-#        --lf_mode acc \
-#        --max_num_feat "$max_num_feat" \
-#        --agg_mode vlad \
-#        --centroids "$centroids" \
-#        --vlad_norm ssr \
-#        --data symphony \
-#        --slice_id "$slice_id" \
-#        --cam_id "$cam_id" \
-#        --survey_id "$survey_id" \
-#        --img_dir "$img_dir" \
-#        --meta_dir "$meta_dir" \
-#        --n_words "$n_words" \
-#        --resize 0 \
-#        --w 640 \
-#        --h 480
-#      
-#      if [ "$?" -ne 0 ]; then
-#        echo "Error in slice "$slice_id" cam "$cam_id" survey_id "$survey_id""
-#        exit 1
-#      fi
-#    done
-#done < "$instance"
-#
-#
+    
+#python -m pywasabi2.tab2latex --data "$data"
+#pdflatex res/"$data"/"$data".tex
+#python pywasabi2/plots_"$data".py

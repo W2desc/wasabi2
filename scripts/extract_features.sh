@@ -82,7 +82,6 @@ fi
 
 # extract local features
 for sid in $slice_id
-#for sid in 23 24 25
 do
   for cid in $cam_id
   do
